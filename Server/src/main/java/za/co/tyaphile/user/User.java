@@ -22,6 +22,9 @@ public class User {
     }
 
     public void issueCard() {
+        if (card != null) {
+            card.setSTOP(true, "Replacement");
+        }
         card = new Card(this, account);
         cards.add(card);
     }
@@ -30,27 +33,27 @@ public class User {
         return account;
     }
 
-    public void setStop(String card_number, String reason) {
+    public void setStop(Card card, String reason) {
         for(Card c:cards) {
-            if(c.getCardNumber().equals(card_number)) {
+            if(c == card) {
                 c.setSTOP(true, reason);
-                System.out.println("Card: " + c.formatCardNumber(card_number) + " has been temporarily stopped");
+                System.out.println("Card: " + c.formatCardNumber(c.getCardNumber()) + " has been temporarily stopped");
             }
         }
     }
 
-    public void removeStop(String card_number, String reason) {
+    public void removeStop(Card card, String reason) {
         for (Card c : cards) {
-            if (c.getCardNumber().equals(card_number)) {
+            if (c == card) {
                 c.setSTOP(false, reason);
-                System.out.println("Temporal stop on card: " + c.formatCardNumber(card_number) + " has been uplifted");
+                System.out.println("Temporal stop on card: " + c.formatCardNumber(card.getCardNumber()) + " has been uplifted");
             }
         }
     }
 
-    public void setFraudStop(String card_number, String reason) {
+    public void setFraudStop(Card card, String reason) {
         for(Card c:cards) {
-            if(c.getCardNumber().equals(card_number)) {
+            if(c == card) {
                 c.setFRAUD(true);
                 c.setSTOP(true, reason);
             }

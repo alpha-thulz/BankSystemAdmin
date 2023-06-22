@@ -31,4 +31,11 @@ public class TestTransactions {
         transactions.Withdrawal(500, "Deposit");
         assertEquals("500.00", transactions.getBalance());
     }
+
+    @Test
+    void testOverdraftLimit() {
+        assertEquals("0.00", transactions.getOverDraftLimit());
+        transactions.setOverDraftLimit(1000);
+        assertEquals("1 000.00", transactions.getOverDraftLimit());
+    }
 }
